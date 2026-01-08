@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Non-Inverting Op-Amp Gain Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background: #181f2a;
+            color: #e9eef3;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .container {
+            background: #232b3b;
+            padding: 2rem 2.5rem 2rem 2.5rem;
+            border-radius: 16px;
+            margin-top: 48px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            min-width: 320px;
+            max-width: 90vw;
+        }
+        h1 {
+            background: #29a7e7;
+            color: #fff;
+            padding: 0.75rem 1rem;
+            border-radius: 7px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-top: 1rem;
+            color: #cbd7e6;
+            font-size: 1.08rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            margin-top: 0.25rem;
+            background: #151c2c;
+            border: 1px solid #3a4b68;
+            padding: 0.6em;
+            border-radius: 6px;
+            color: #e9eef3;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+        }
+        button {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            padding: 0.7em 2em;
+            border-radius: 7px;
+            font-size: 1.07rem;
+            cursor: pointer;
+            margin-top: 1.2rem;
+            box-shadow: 0 2px 8px rgba(30,144,255, 0.10);
+            transition: background 0.18s;
+        }
+        button:hover, button:focus {
+            background: #2dd4fa;
+        }
+        .result {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            color: #bef264;
+            background: #212926;
+            padding: 0.7rem 1rem;
+            border-radius: 7px;
+        }
+        .formula {
+            margin-top: 1.15rem;
+            color: #ffa500;
+            font-size: 1rem;
+            text-align: center;
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: #15191e;
+            border-radius: 7px;
+            padding: 0.5em 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Operational Amplifier<br><span style="font-weight:400;font-size:1.1rem">Non-Inverting Gain Calculator</span></h1>
+        <div class="formula">
+            Gain = 1 + <span style="text-decoration:overline">Rf</span>/<span style="text-decoration:overline">R1</span>
+        </div>
+        <form id="gainForm" autocomplete="off">
+            <label for="r1">Resistor R1 (Ω):</label>
+            <input type="number" id="r1" min="0" step="any" required placeholder="Enter R1 value">
+            
+            <label for="rf">Feedback Resistor Rf (Ω):</label>
+            <input type="number" id="rf" min="0" step="any" required placeholder="Enter Rf value">
+            
+            <button type="submit">Calculate</button>
+        </form>
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+    <script>
+        document.getElementById('gainForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止表单默认提交行为，防止页面刷新
+            
+            // 获取输入值
+            const r1 = parseFloat(document.getElementById('r1').value);
+            const rf = parseFloat(document.getElementById('rf').value);
+            
+            // 验证输入
+            if (isNaN(r1) || isNaN(rf) || r1 <= 0 || rf <= 0) {
+                alert('请输入有效的正数！');
+                return;
+            }
+            
+            // 计算增益：Gain = 1 + Rf/R1
+            const gain = 1 + (rf / r1);
+            
+            // 显示结果
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Gain = ${gain.toFixed(4)} (${(gain * 100).toFixed(2)}%)`;
+            resultDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
