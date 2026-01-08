@@ -13,8 +13,8 @@
         
         body {
             font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #e0e0e0;
+            background: #0f172a;
+            color: #e2e8f0;
             min-height: 100vh;
             padding: 2rem;
             line-height: 1.6;
@@ -27,171 +27,214 @@
         
         .header {
             text-align: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid #333;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #1e293b;
         }
         
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.25rem;
             color: #ffffff;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
         
         .header p {
-            color: #999;
-            font-size: 1rem;
+            color: #94a3b8;
+            font-size: 1.1rem;
         }
         
         .grid-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
+            gap: 3rem;
             align-items: start;
         }
         
         @media (max-width: 1024px) {
             .grid-layout {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 2.5rem;
             }
         }
         
         .panel {
-            background: #252525;
-            border-radius: 8px;
+            background: #1e293b;
+            border-radius: 12px;
             padding: 2rem;
-            border: 1px solid #333;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
         
         .panel-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: #ffffff;
             margin-bottom: 1.5rem;
             font-weight: 600;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #334155;
         }
         
         /* Schematic Panel */
         .schematic-container {
-            background: #0f0f0f;
-            border-radius: 6px;
+            background: #0f172a;
+            border-radius: 8px;
             padding: 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #333;
-            min-height: 450px;
+            border: 1px solid #334155;
+            min-height: 400px;
         }
         
         /* Input Panel */
         .formula-box {
-            background: #0f0f0f;
-            border-radius: 6px;
-            padding: 1.5rem;
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1.75rem;
             margin-bottom: 2rem;
-            border: 1px solid #333;
-            text-align: center;
+            border: 2px solid #334155;
+            border-left: 4px solid #38bdf8;
         }
         
         .formula-label {
             font-size: 0.75rem;
-            color: #999;
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.75rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .formula {
-            font-size: 1.5rem;
-            color: #007bff;
-            font-weight: 600;
+            font-size: 1.75rem;
+            color: #38bdf8;
+            font-weight: 700;
             font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        
+        .theory-section {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1.75rem;
+            margin-top: 2rem;
+            border: 1px solid #334155;
+        }
+        
+        .theory-title {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .theory-content {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .theory-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .theory-content p:last-child {
+            margin-bottom: 0;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
         
         .form-group label {
             display: block;
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 0.75rem;
             font-weight: 500;
         }
         
         .form-group input {
             width: 100%;
-            background: #0f0f0f;
-            border: 1px solid #444;
-            border-radius: 4px;
-            padding: 0.75rem;
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 6px;
+            padding: 0.875rem 1rem;
             color: #ffffff;
             font-size: 1rem;
             font-family: 'Arial', sans-serif;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
         }
         
         .form-group input:focus {
             outline: none;
-            border-color: #007bff;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
         }
         
         .form-group input::placeholder {
-            color: #666;
+            color: #475569;
         }
         
         .unit-hint {
             font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.25rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+            font-style: italic;
         }
         
         .btn-calculate {
             width: 100%;
-            background: #007bff;
-            color: #ffffff;
+            background: #38bdf8;
+            color: #0f172a;
             border: none;
-            border-radius: 4px;
-            padding: 0.875rem;
-            font-size: 1rem;
+            border-radius: 6px;
+            padding: 1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
             font-family: 'Arial', sans-serif;
             margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .btn-calculate:hover {
-            background: #0056b3;
+            background: #0ea5e9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
         
         .btn-calculate:active {
-            background: #004085;
+            transform: translateY(0);
         }
         
         .result-container {
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid #333;
+            border-top: 2px solid #334155;
         }
         
         .result-label {
             font-size: 0.75rem;
-            color: #999;
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.75rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
         
         .result-box {
-            background: #0f0f0f;
-            border-radius: 6px;
-            padding: 1.5rem;
-            border: 1px solid #333;
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1.75rem;
+            border: 2px solid #334155;
+            border-left: 4px solid #10b981;
             display: none;
         }
         
@@ -200,23 +243,24 @@
         }
         
         .result-value {
-            font-size: 1.5rem;
-            color: #007bff;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+            color: #10b981;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-family: 'Arial', sans-serif;
         }
         
         .result-detail {
-            font-size: 0.9rem;
-            color: #999;
+            font-size: 0.95rem;
+            color: #94a3b8;
         }
         
         .error-box {
-            background: #3d1a1a;
-            border: 1px solid #5a2a2a;
-            border-radius: 4px;
-            padding: 0.75rem;
-            color: #ff6b6b;
+            background: #7f1d1d;
+            border: 2px solid #991b1b;
+            border-radius: 6px;
+            padding: 1rem;
+            color: #fca5a5;
             font-size: 0.9rem;
             margin-top: 1rem;
             display: none;
@@ -239,60 +283,22 @@
             <div class="panel">
                 <h2 class="panel-title">Circuit Schematic</h2>
                 <div class="schematic-container">
-                    <svg width="500" height="450" viewBox="0 0 500 450" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Input Signal (Left side) -->
-                        <line x1="50" y1="200" x2="150" y2="200" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <circle cx="50" cy="200" r="3" fill="#ffffff"/>
-                        <text x="15" y="205" fill="#ffffff" font-family="Arial" font-size="14" font-weight="600">V<tspan font-size="10" baseline-shift="sub">in</tspan></text>
-                        
-                        <!-- Connection to Non-Inverting Input (+) -->
-                        <line x1="150" y1="200" x2="150" y2="140" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <line x1="150" y1="140" x2="200" y2="140" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- Op-Amp Triangle (Standard IEEE Symbol) -->
-                        <polygon points="200,110 200,170 300,140" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-                        
-                        <!-- Op-Amp Terminal Labels -->
-                        <text x="310" y="132" fill="#ffffff" font-family="Arial" font-size="12" font-weight="600">+</text>
-                        <text x="310" y="158" fill="#ffffff" font-family="Arial" font-size="12" font-weight="600">-</text>
-                        
-                        <!-- Output Line (Right side) -->
-                        <line x1="300" y1="140" x2="420" y2="140" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <circle cx="420" cy="140" r="3" fill="#ffffff"/>
-                        <text x="435" y="145" fill="#ffffff" font-family="Arial" font-size="14" font-weight="600">V<tspan font-size="10" baseline-shift="sub">out</tspan></text>
-                        
-                        <!-- Feedback Loop: Output to Rf -->
-                        <line x1="300" y1="140" x2="300" y2="80" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <line x1="300" y1="80" x2="220" y2="80" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- Feedback Resistor Rf (Horizontal Zigzag) -->
-                        <path d="M 220 80 L 230 75 L 240 85 L 250 75 L 260 85 L 270 75 L 280 85 L 290 75 L 300 80" 
-                              stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <text x="260" y="65" fill="#ffffff" font-family="Arial" font-size="13" font-weight="600" text-anchor="middle">R<tspan font-size="10" baseline-shift="sub">f</tspan></text>
-                        
-                        <!-- Connection from Rf to Node (Inverting Input Junction) -->
-                        <line x1="220" y1="80" x2="220" y2="230" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- Connection from Node to Inverting Input (-) -->
-                        <line x1="220" y1="230" x2="200" y2="170" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- Ground Resistor R1 (Vertical, from Node to Ground) -->
-                        <line x1="220" y1="230" x2="220" y2="280" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- R1 Resistor (Vertical Zigzag) -->
-                        <path d="M 220 280 L 215 290 L 225 300 L 215 310 L 225 320 L 215 330 L 225 340 L 215 350 L 220 360" 
-                              stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <text x="195" y="320" fill="#ffffff" font-family="Arial" font-size="13" font-weight="600">R<tspan font-size="10" baseline-shift="sub">1</tspan></text>
-                        
-                        <!-- Connection from R1 to Ground -->
-                        <line x1="220" y1="360" x2="220" y2="400" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        
-                        <!-- Ground Symbol -->
-                        <line x1="200" y1="400" x2="240" y2="400" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <line x1="210" y1="390" x2="210" y2="410" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <line x1="205" y1="400" x2="215" y2="400" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <line x1="220" y1="400" x2="230" y2="400" stroke="#ffffff" stroke-width="1.5" fill="none"/>
-                        <text x="245" y="405" fill="#ffffff" font-family="Arial" font-size="11">GND</text>
+                    <svg viewBox="0 0 400 240" style="width:100%; max-width:400px; background:#1e293b; border-radius:8px; padding:20px;">
+                        <path d="M 160 80 L 160 180 L 260 130 Z" fill="none" stroke="#38bdf8" stroke-width="3"/>
+                        <text x="170" y="115" fill="#38bdf8" font-family="Arial" font-size="20">+</text>
+                        <text x="170" y="155" fill="#38bdf8" font-family="Arial" font-size="20">-</text>
+                        <line x1="80" y1="105" x2="160" y2="105" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="260" y1="130" x2="340" y2="130" stroke="#94a3b8" stroke-width="2"/>
+                        <path d="M 280 130 L 280 190 L 220 190 M 180 190 L 160 190 L 160 155" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="160" y1="190" x2="160" y2="210" stroke="#94a3b8" stroke-width="2"/>
+                        <rect x="185" y="180" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+                        <rect x="145" y="210" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="45" y="110" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vin</text>
+                        <text x="350" y="135" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vout</text>
+                        <text x="190" y="175" fill="#fbbf24" font-family="Arial" font-size="14">Rf</text>
+                        <text x="115" y="225" fill="#fbbf24" font-family="Arial" font-size="14">R1</text>
+                        <line x1="150" y1="235" x2="170" y2="235" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="155" y1="240" x2="165" y2="240" stroke="#94a3b8" stroke-width="2"/>
                     </svg>
                 </div>
             </div>
@@ -308,29 +314,29 @@
                 
                 <form id="gainForm" autocomplete="off">
                     <div class="form-group">
-                        <label for="r1">Resistor R<sub>1</sub></label>
+                        <label for="r1">Resistor R<sub>1</sub> (Ω)</label>
                         <input 
                             type="number" 
                             id="r1" 
                             min="0" 
                             step="any" 
                             required 
-                            placeholder="Enter R1 value"
+                            placeholder="Enter R1 resistance value"
                         >
-                        <div class="unit-hint">Resistance in Ohms (Ω)</div>
+                        <div class="unit-hint">Input resistance from inverting terminal to ground</div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="rf">Feedback Resistor R<sub>f</sub></label>
+                        <label for="rf">Feedback Resistor R<sub>f</sub> (Ω)</label>
                         <input 
                             type="number" 
                             id="rf" 
                             min="0" 
                             step="any" 
                             required 
-                            placeholder="Enter Rf value"
+                            placeholder="Enter Rf resistance value"
                         >
-                        <div class="unit-hint">Resistance in Ohms (Ω)</div>
+                        <div class="unit-hint">Feedback resistance from output to inverting terminal</div>
                     </div>
                     
                     <button type="submit" class="btn-calculate">Calculate Gain</button>
@@ -343,6 +349,28 @@
                     <div class="result-box" id="resultBox">
                         <div class="result-value" id="resultValue"></div>
                         <div class="result-detail" id="resultDetail"></div>
+                    </div>
+                </div>
+                
+                <div class="theory-section">
+                    <div class="theory-title">Theory</div>
+                    <div class="theory-content">
+                        <p>
+                            The non-inverting operational amplifier configuration uses negative feedback 
+                            to control the voltage gain. The input signal is applied to the non-inverting 
+                            (+) terminal, while the output is fed back to the inverting (-) terminal 
+                            through the feedback resistor R<sub>f</sub>.
+                        </p>
+                        <p>
+                            The gain is determined by the ratio of the feedback resistor (R<sub>f</sub>) 
+                            to the ground resistor (R<sub>1</sub>). The gain is always greater than or 
+                            equal to 1, and the output signal maintains the same phase as the input signal.
+                        </p>
+                        <p>
+                            This configuration is widely used in analog circuits for signal amplification, 
+                            buffering, and active filtering applications due to its high input impedance 
+                            and precise gain control.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -381,6 +409,11 @@
             resultDetail.textContent = `Output Voltage = ${gain.toFixed(6)} × Input Voltage`;
             
             resultBox.classList.add('active');
+            
+            // Scroll result into view on mobile
+            if (window.innerWidth < 1024) {
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         });
     </script>
 </body>
