@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Non-Inverting Op-Amp Gain Calculator</title>
+    <title>EE Master Toolkit - Professional Electronics Calculators</title>
+    <meta name="description" content="Professional electronics engineering calculators and tools. Op-amp gain calculator, voltage divider, LED resistor calculator, and more.">
+    <meta name="keywords" content="electronics calculator, engineering tools, op-amp calculator, voltage divider, LED resistor calculator, EE tools">
     <style>
         * {
             margin: 0;
@@ -21,400 +23,185 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             padding-bottom: 2rem;
             border-bottom: 2px solid #1e293b;
         }
         
         .header h1 {
-            font-size: 2.25rem;
+            font-size: 3rem;
             color: #ffffff;
             margin-bottom: 0.5rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
         }
         
         .header p {
             color: #94a3b8;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
         }
         
-        .grid-layout {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
         
-        @media (max-width: 1024px) {
-            .grid-layout {
+        @media (max-width: 768px) {
+            .tools-grid {
                 grid-template-columns: 1fr;
-                gap: 2.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
             }
         }
         
-        .panel {
+        .tool-card {
             background: #1e293b;
             border-radius: 12px;
             padding: 2rem;
             border: 1px solid #334155;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
         
-        .panel-title {
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border-color: #38bdf8;
+        }
+        
+        .tool-card.coming-soon {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .tool-card.coming-soon:hover {
+            transform: none;
+            border-color: #334155;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: #0f172a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 2px solid #334155;
+            font-size: 1.5rem;
+        }
+        
+        .tool-card:hover .tool-icon {
+            border-color: #38bdf8;
+            background: #1e293b;
+        }
+        
+        .tool-title {
             font-size: 1.5rem;
             color: #ffffff;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #334155;
-        }
-        
-        /* Schematic Panel */
-        .schematic-container {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #334155;
-            min-height: 400px;
-        }
-        
-        /* Input Panel */
-        .formula-box {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            margin-bottom: 2rem;
-            border: 2px solid #334155;
-            border-left: 4px solid #38bdf8;
-        }
-        
-        .formula-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .formula {
-            font-size: 1.75rem;
-            color: #38bdf8;
-            font-weight: 700;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-        }
-        
-        .theory-section {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            margin-top: 2rem;
-            border: 1px solid #334155;
-        }
-        
-        .theory-title {
-            font-size: 1.1rem;
-            color: #ffffff;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #334155;
-        }
-        
-        .theory-content {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-        
-        .theory-content p {
-            margin-bottom: 1rem;
-        }
-        
-        .theory-content p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .form-group {
-            margin-bottom: 1.75rem;
-        }
-        
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            color: #cbd5e1;
             margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            background: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 6px;
-            padding: 0.875rem 1rem;
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: 'Arial', sans-serif;
-            transition: all 0.2s ease;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-        }
-        
-        .form-group input::placeholder {
-            color: #475569;
-        }
-        
-        .unit-hint {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-        
-        .btn-calculate {
-            width: 100%;
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            border-radius: 6px;
-            padding: 1rem;
-            font-size: 1.05rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Arial', sans-serif;
-            margin-top: 0.5rem;
+        }
+        
+        .tool-description {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .tool-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
-        .btn-calculate:hover {
-            background: #0ea5e9;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        .status-available {
+            background: #10b981;
+            color: #ffffff;
         }
         
-        .btn-calculate:active {
-            transform: translateY(0);
+        .status-coming-soon {
+            background: #64748b;
+            color: #ffffff;
         }
         
-        .result-container {
-            margin-top: 2rem;
+        .footer {
+            margin-top: 4rem;
             padding-top: 2rem;
-            border-top: 2px solid #334155;
-        }
-        
-        .result-label {
-            font-size: 0.75rem;
+            border-top: 2px solid #1e293b;
+            text-align: center;
             color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .result-box {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            border: 2px solid #334155;
-            border-left: 4px solid #10b981;
-            display: none;
-        }
-        
-        .result-box.active {
-            display: block;
-        }
-        
-        .result-value {
-            font-size: 1.75rem;
-            color: #10b981;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        .result-detail {
-            font-size: 0.95rem;
-            color: #94a3b8;
-        }
-        
-        .error-box {
-            background: #7f1d1d;
-            border: 2px solid #991b1b;
-            border-radius: 6px;
-            padding: 1rem;
-            color: #fca5a5;
             font-size: 0.9rem;
-            margin-top: 1rem;
-            display: none;
-        }
-        
-        .error-box.active {
-            display: block;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>Non-Inverting Operational Amplifier</h1>
-            <p>Gain Calculator</p>
+            <h1>EE Master Toolkit</h1>
+            <p>Professional Electronics Engineering Calculators</p>
         </header>
         
-        <div class="grid-layout">
-            <!-- Left Column: Schematic -->
-            <div class="panel">
-                <h2 class="panel-title">Circuit Schematic</h2>
-                <div class="schematic-container">
-                    <svg viewBox="0 0 400 240" style="width:100%; max-width:400px; background:#1e293b; border-radius:8px; padding:20px;">
-                        <path d="M 160 80 L 160 180 L 260 130 Z" fill="none" stroke="#38bdf8" stroke-width="3"/>
-                        <text x="170" y="115" fill="#38bdf8" font-family="Arial" font-size="20">+</text>
-                        <text x="170" y="155" fill="#38bdf8" font-family="Arial" font-size="20">-</text>
-                        <line x1="80" y1="105" x2="160" y2="105" stroke="#94a3b8" stroke-width="2"/>
-                        <line x1="260" y1="130" x2="340" y2="130" stroke="#94a3b8" stroke-width="2"/>
-                        <path d="M 280 130 L 280 190 L 220 190 M 180 190 L 160 190 L 160 155" fill="none" stroke="#94a3b8" stroke-width="2"/>
-                        <line x1="160" y1="190" x2="160" y2="210" stroke="#94a3b8" stroke-width="2"/>
-                        <rect x="185" y="180" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
-                        <rect x="145" y="210" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
-                        <text x="45" y="110" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vin</text>
-                        <text x="350" y="135" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vout</text>
-                        <text x="190" y="175" fill="#fbbf24" font-family="Arial" font-size="14">Rf</text>
-                        <text x="115" y="225" fill="#fbbf24" font-family="Arial" font-size="14">R1</text>
-                        <line x1="150" y1="235" x2="170" y2="235" stroke="#94a3b8" stroke-width="2"/>
-                        <line x1="155" y1="240" x2="165" y2="240" stroke="#94a3b8" stroke-width="2"/>
-                    </svg>
-                </div>
+        <div class="tools-grid">
+            <!-- Non-Inverting Op-Amp Calculator -->
+            <a href="op-amp.html" class="tool-card">
+                <div class="tool-icon">⚡</div>
+                <h2 class="tool-title">Non-Inverting Op-Amp Calculator</h2>
+                <p class="tool-description">
+                    Calculate the voltage gain of non-inverting operational amplifier circuits using R1 and Rf resistors. 
+                    Perfect for designing audio amplifiers, sensor interfaces, and instrumentation circuits.
+                </p>
+                <span class="tool-status status-available">Available</span>
+            </a>
+            
+            <!-- Voltage Divider Calculator -->
+            <div class="tool-card coming-soon">
+                <div class="tool-icon">📊</div>
+                <h2 class="tool-title">Voltage Divider Calculator</h2>
+                <p class="tool-description">
+                    Calculate output voltage and resistor values for voltage divider circuits. Essential for biasing 
+                    circuits, reference voltages, and signal attenuation applications.
+                </p>
+                <span class="tool-status status-coming-soon">Coming Soon</span>
             </div>
             
-            <!-- Right Column: Inputs and Results -->
-            <div class="panel">
-                <h2 class="panel-title">Calculator</h2>
-                
-                <div class="formula-box">
-                    <div class="formula-label">Gain Formula</div>
-                    <div class="formula">A = 1 + R<sub>f</sub>/R<sub>1</sub></div>
-                </div>
-                
-                <form id="gainForm" autocomplete="off">
-                    <div class="form-group">
-                        <label for="r1">Resistor R<sub>1</sub> (Ω)</label>
-                        <input 
-                            type="number" 
-                            id="r1" 
-                            min="0" 
-                            step="any" 
-                            required 
-                            placeholder="Enter R1 resistance value"
-                        >
-                        <div class="unit-hint">Input resistance from inverting terminal to ground</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="rf">Feedback Resistor R<sub>f</sub> (Ω)</label>
-                        <input 
-                            type="number" 
-                            id="rf" 
-                            min="0" 
-                            step="any" 
-                            required 
-                            placeholder="Enter Rf resistance value"
-                        >
-                        <div class="unit-hint">Feedback resistance from output to inverting terminal</div>
-                    </div>
-                    
-                    <button type="submit" class="btn-calculate">Calculate Gain</button>
-                    
-                    <div class="error-box" id="errorBox"></div>
-                </form>
-                
-                <div class="result-container">
-                    <div class="result-label">Result</div>
-                    <div class="result-box" id="resultBox">
-                        <div class="result-value" id="resultValue"></div>
-                        <div class="result-detail" id="resultDetail"></div>
-                    </div>
-                </div>
-                
-                <div class="theory-section">
-                    <div class="theory-title">Theory</div>
-                    <div class="theory-content">
-                        <p>
-                            The non-inverting operational amplifier configuration uses negative feedback 
-                            to control the voltage gain. The input signal is applied to the non-inverting 
-                            (+) terminal, while the output is fed back to the inverting (-) terminal 
-                            through the feedback resistor R<sub>f</sub>.
-                        </p>
-                        <p>
-                            The gain is determined by the ratio of the feedback resistor (R<sub>f</sub>) 
-                            to the ground resistor (R<sub>1</sub>). The gain is always greater than or 
-                            equal to 1, and the output signal maintains the same phase as the input signal.
-                        </p>
-                        <p>
-                            This configuration is widely used in analog circuits for signal amplification, 
-                            buffering, and active filtering applications due to its high input impedance 
-                            and precise gain control.
-                        </p>
-                    </div>
-                </div>
+            <!-- LED Resistor Calculator -->
+            <div class="tool-card coming-soon">
+                <div class="tool-icon">💡</div>
+                <h2 class="tool-title">LED Resistor Calculator</h2>
+                <p class="tool-description">
+                    Calculate the required series resistor for LED circuits. Supports multiple LEDs, different 
+                    forward voltages, and current requirements for safe and efficient LED operation.
+                </p>
+                <span class="tool-status status-coming-soon">Coming Soon</span>
             </div>
         </div>
+        
+        <footer class="footer">
+            © 2026 EE Toolkit - Professional Electronics Calculators
+        </footer>
     </div>
-    
-    <script>
-        document.getElementById('gainForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form submission and page refresh
-            
-            // Hide previous error
-            const errorBox = document.getElementById('errorBox');
-            errorBox.classList.remove('active');
-            
-            // Get input values
-            const r1 = parseFloat(document.getElementById('r1').value);
-            const rf = parseFloat(document.getElementById('rf').value);
-            
-            // Validate inputs
-            if (isNaN(r1) || isNaN(rf) || r1 <= 0 || rf <= 0) {
-                errorBox.textContent = 'Please enter valid positive numbers for both resistors.';
-                errorBox.classList.add('active');
-                document.getElementById('resultBox').classList.remove('active');
-                return;
-            }
-            
-            // Calculate gain: Gain = 1 + Rf/R1
-            const gain = 1 + (rf / r1);
-            
-            // Display result
-            const resultBox = document.getElementById('resultBox');
-            const resultValue = document.getElementById('resultValue');
-            const resultDetail = document.getElementById('resultDetail');
-            
-            resultValue.textContent = `Gain (A) = ${gain.toFixed(6)}`;
-            resultDetail.textContent = `Output Voltage = ${gain.toFixed(6)} × Input Voltage`;
-            
-            resultBox.classList.add('active');
-            
-            // Scroll result into view on mobile
-            if (window.innerWidth < 1024) {
-                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        });
-    </script>
 </body>
 </html>
