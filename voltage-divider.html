@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precision Voltage Divider Calculator | EE Toolkit</title>
+    <meta name="description" content="Professional online voltage divider calculator. Calculate Vout and Current based on Vin, R1, and R2. Includes theory on loading effects and power dissipation constraints.">
+    <meta name="keywords" content="voltage divider calculator, resistor divider, ohm's law, level shifter, 5V to 3.3V, loading effect, electronics tool, R1 R2 calculator">
+    <style>
+        /* CSS 保持 100% 不变 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { font-family: 'Arial', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #1e293b; }
+        .header h1 { font-size: 2.25rem; color: #ffffff; margin-bottom: 0.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .header p { color: #94a3b8; font-size: 1.1rem; }
+        
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+        @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+        
+        .panel { background: #1e293b; border-radius: 12px; padding: 2rem; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
+        .panel-title { font-size: 1.5rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 600; padding-bottom: 1rem; border-bottom: 2px solid #334155; }
+        
+        .schematic-container { background: #0f172a; border-radius: 8px; padding: 2rem; display: flex; justify-content: center; align-items: center; border: 1px solid #334155; min-height: 400px; }
+        
+        .formula-box { background: #0f172a; border-radius: 8px; padding: 1.75rem; margin-bottom: 2rem; border: 2px solid #334155; border-left: 4px solid #38bdf8; }
+        .formula-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-weight: 600; }
+        .formula { font-size: 1.75rem; color: #38bdf8; font-weight: 700; font-family: 'Arial', sans-serif; text-align: center; }
+        
+        .theory-section { background: #0f172a; border-radius: 8px; padding: 1.75rem; margin-top: 2rem; border: 1px solid #334155; }
+        .theory-title { font-size: 1.1rem; color: #ffffff; margin-bottom: 1rem; font-weight: 600; padding-bottom: 0.75rem; border-bottom: 1px solid #334155; }
+        .theory-content { color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; }
+        .theory-content p { margin-bottom: 1rem; }
+        .theory-content p:last-child { margin-bottom: 0; }
+        
+        .form-group { margin-bottom: 1.75rem; }
+        .form-group label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 0.75rem; font-weight: 500; }
+        .form-group input { width: 100%; background: #0f172a; border: 2px solid #334155; border-radius: 6px; padding: 0.875rem 1rem; color: #ffffff; font-size: 1rem; font-family: 'Arial', sans-serif; transition: all 0.2s ease; }
+        .form-group input:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+        .form-group input:disabled { background: #1e293b; border-color: #334155; color: #64748b; cursor: not-allowed; }
+        .form-group input::placeholder { color: #475569; }
+        .unit-hint { font-size: 0.8rem; color: #64748b; margin-top: 0.5rem; font-style: italic; }
+        
+        .btn-calculate { width: 100%; background: #38bdf8; color: #0f172a; border: none; border-radius: 6px; padding: 1rem; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Arial', sans-serif; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-calculate:hover { background: #0ea5e9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); }
+        .btn-calculate:active { transform: translateY(0); }
+        
+        .result-container { margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #334155; }
+        .result-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-weight: 600; }
+        .result-box { background: #0f172a; border-radius: 8px; padding: 1.75rem; border: 2px solid #334155; border-left: 4px solid #10b981; display: none; }
+        .result-box.active { display: block; }
+        .result-value { font-size: 1.75rem; color: #10b981; font-weight: 700; margin-bottom: 0.75rem; font-family: 'Arial', sans-serif; }
+        .result-detail { font-size: 0.95rem; color: #94a3b8; }
+        
+        .error-box { background: #7f1d1d; border: 2px solid #991b1b; border-radius: 6px; padding: 1rem; color: #fca5a5; font-size: 0.9rem; margin-top: 1rem; display: none; }
+        .error-box.active { display: block; }
+        
+        .detailed-theory { background: #1e293b; border-radius: 12px; padding: 2.5rem; margin-top: 3rem; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
+        .detailed-theory-title { font-size: 1.75rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 600; padding-bottom: 1rem; border-bottom: 2px solid #334155; }
+        .theory-subsection { margin-bottom: 2.5rem; }
+        .theory-subsection:last-child { margin-bottom: 0; }
+        .subsection-title { font-size: 1.25rem; color: #38bdf8; margin-bottom: 1rem; font-weight: 600; }
+        .latex-formula { background: #0f172a; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; border: 2px solid #334155; text-align: center; font-size: 1.5rem; color: #38bdf8; font-family: 'Arial', sans-serif; font-weight: 700; }
+        .theory-text { color: #cbd5e1; font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
+        .theory-text ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+        .theory-text li { margin-bottom: 0.75rem; }
+        .theory-text strong { color: #ffffff; }
+        
+        .limitations-box { background: #3d2616; border: 1px solid #d97706; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; }
+        .limitations-box h4 { color: #fbbf24; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        
+        .ad-placeholder { background: #1e293b; border: 2px dashed #475569; border-radius: 8px; padding: 3rem 2rem; margin: 3rem 0; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .ad-placeholder-text { color: #64748b; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .footer { margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #1e293b; text-align: center; color: #64748b; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Voltage Divider Calculator</h1>
+            <p>Resistor Ratio & Output Precision Tool</p>
+        </header>
+        
+        <div class="grid-layout">
+            <div class="panel">
+                <h2 class="panel-title">Circuit Schematic</h2>
+                <div class="schematic-container">
+                    <svg viewBox="0 0 400 300" style="width:100%; max-width:400px; background:#1e293b; border-radius:8px; padding:20px;">
+                        <circle cx="200" cy="50" r="5" fill="#38bdf8"/>
+                        <text x="215" y="55" fill="#38bdf8" font-family="Arial" font-size="16" font-weight="bold">Vin</text>
+                        <line x1="200" y1="50" x2="200" y2="90" stroke="#94a3b8" stroke-width="2"/>
+                        <rect x="185" y="90" width="30" height="50" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="155" y="120" fill="#fbbf24" font-family="Arial" font-size="14">R1</text>
+                        <line x1="200" y1="140" x2="200" y2="170" stroke="#94a3b8" stroke-width="2"/>
+                        <circle cx="200" cy="155" r="4" fill="#38bdf8"/>
+                        <line x1="200" y1="155" x2="280" y2="155" stroke="#94a3b8" stroke-width="2"/>
+                        <circle cx="280" cy="155" r="5" fill="#38bdf8"/>
+                        <text x="290" y="160" fill="#38bdf8" font-family="Arial" font-size="16" font-weight="bold">Vout</text>
+                        <rect x="185" y="170" width="30" height="50" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+                        <text x="155" y="200" fill="#fbbf24" font-family="Arial" font-size="14">R2</text>
+                        <line x1="200" y1="220" x2="200" y2="250" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="180" y1="250" x2="220" y2="250" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="185" y1="255" x2="215" y2="255" stroke="#94a3b8" stroke-width="2"/>
+                        <line x1="192" y1="260" x2="208" y2="260" stroke="#94a3b8" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h2 class="panel-title">Calculator</h2>
+                
+                <div class="formula-box">
+                    <div class="formula-label">Divider Formula</div>
+                    <div class="formula">V<sub>out</sub> = V<sub>in</sub> × R<sub>2</sub> / (R<sub>1</sub> + R<sub>2</sub>)</div>
+                </div>
+                
+                <form id="dividerForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="vin">Input Voltage V<sub>in</sub> (V)</label>
+                        <input type="number" id="vin" step="any" required placeholder="Enter Source Voltage (e.g. 5.0)">
+                        <div class="unit-hint">Total voltage applied to the circuit</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="r1">Top Resistor R<sub>1</sub> (Ω)</label>
+                        <input type="number" id="r1" min="0" step="any" required placeholder="Enter R1 Value (e.g. 1000)">
+                        <div class="unit-hint">Resistor between Vin and Vout</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="r2">Bottom Resistor R<sub>2</sub> (Ω)</label>
+                        <input type="number" id="r2" min="0" step="any" required placeholder="Enter R2 Value (e.g. 2000)">
+                        <div class="unit-hint">Resistor between Vout and Ground</div>
+                    </div>
+                    
+                    <button type="submit" class="btn-calculate">Calculate Output</button>
+                    <div class="error-box" id="errorBox"></div>
+                </form>
+                
+                <div class="result-container">
+                    <div class="result-label">Result</div>
+                    <div class="result-box" id="resultBox">
+                        <div class="result-value" id="resultValue"></div>
+                        <div class="result-detail" id="resultDetail"></div>
+                    </div>
+                </div>
+                
+                <div class="theory-section">
+                    <div class="theory-title">Theory</div>
+                    <div class="theory-content">
+                        <p>
+                            A voltage divider is a simple passive linear circuit that produces an output voltage (V<sub>out</sub>) 
+                            that is a fraction of its input voltage (V<sub>in</sub>). It is created by connecting two resistors in series.
+                        </p>
+                        <p>
+                            The current flowing through the series circuit is consistent, allowing Ohm's Law to distribute 
+                            the voltage drop across resistors R<sub>1</sub> and R<sub>2</sub> proportionally.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-theory">
+            <h2 class="detailed-theory-title">Detailed Theory & Application</h2>
+            
+            <div class="theory-subsection">
+                <h3 class="subsection-title">The Mathematics</h3>
+                <div class="latex-formula">V<sub>out</sub> = V<sub>in</sub> × <span style="font-size:0.9em">( R<sub>2</sub> / (R<sub>1</sub> + R<sub>2</sub>) )</span></div>
+                <p class="theory-text">
+                    The division ratio is determined strictly by the resistance values. If R<sub>1</sub> and R<sub>2</sub> are equal, 
+                    the output voltage is exactly half of the input voltage. This linear relationship makes it essential 
+                    for signal scaling and reference generation.
+                </p>
+            </div>
+            
+            <div class="theory-subsection">
+                <h3 class="subsection-title">Practical Tips & Component Selection</h3>
+                <p class="theory-text">
+                    Choosing the right resistor values is a balance between power consumption and signal stability:
+                </p>
+                <ul class="theory-text">
+                    <li><strong>Standard E24 Values:</strong> When designing real-world circuits, stick to standard values (e.g., 1kΩ, 2.2kΩ, 4.7kΩ, 10kΩ). Precision dividers may require E96 series (1% tolerance).</li>
+                    <li><strong>For 5V to 3.3V Logic:</strong> A common requirement for interfacing Arduino to ESP32. Recommended values are <strong>R1 = 1.8kΩ</strong> and <strong>R2 = 3.3kΩ</strong> (Ratio ≈ 0.65). Alternatively, R1 = 1kΩ and R2 = 2kΩ (Vout ≈ 3.33V).</li>
+                    <li><strong>Battery Monitoring:</strong> To read a 12V Li-Po battery with a 3.3V ADC, use high values to save power (e.g., R1 = 100kΩ, R2 = 33kΩ). Add a small capacitor (0.1µF) at Vout to reduce noise.</li>
+                </ul>
+            </div>
+            
+            <div class="theory-subsection">
+                <h3 class="subsection-title">Common Use Cases</h3>
+                <ul class="theory-text">
+                    <li><strong>Logic Level Shifting:</strong> Safe step-down of signals (e.g., 5V sensor output to 3.3V microcontroller input). Note: This is unidirectional and slow (unsuitable for high-speed I2C/SPI).</li>
+                    <li><strong>Sensor Interfacing:</strong> Reading resistive sensors like LDRs (Light Dependent Resistors) or Thermistors. The sensor acts as R2, and the voltage change is read by an ADC.</li>
+                    <li><strong>Bias References:</strong> Creating a mid-point voltage (e.g., Vcc/2) for biasing AC signals in single-supply Op-Amp circuits.</li>
+                </ul>
+            </div>
+
+            <div class="limitations-box">
+                <h4><span>⚠️</span> Real-World Engineering Constraints</h4>
+                <ul class="theory-text" style="color:#fbbf24; margin-top:0.5rem;">
+                    <li><strong>Loading Effect (Impedance Mismatch):</strong> This is the #1 error. If the device connected to V<sub>out</sub> has low input impedance, it drags the voltage down. <em>Rule of thumb: Load impedance should be >10x R2.</em></li>
+                    <li><strong>Power Dissipation:</strong> Ensure <em>each</em> resistor can handle the current flow (P = I²R). Standard resistors are usually rated for 0.25W.</li>
+                    <li><strong>Not a Voltage Regulator:</strong> Never use a divider to power a load (like a motor or LED strip). The voltage will fluctuate wildly as the load current changes, and resistors will overheat.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="ad-placeholder">
+            <div class="ad-placeholder-text">Sponsored Content</div>
+        </div>
+        
+        <footer class="footer">
+            © 2026 EE Toolkit - Professional Electronics Calculators
+        </footer>
+    </div>
+    
+    <script>
+        const form = document.getElementById('dividerForm');
+        const vinInput = document.getElementById('vin');
+        const r1Input = document.getElementById('r1');
+        const r2Input = document.getElementById('r2');
+        const errorBox = document.getElementById('errorBox');
+        const resultBox = document.getElementById('resultBox');
+        const resultValue = document.getElementById('resultValue');
+        const resultDetail = document.getElementById('resultDetail');
+
+        function calculate() {
+            const vin = parseFloat(vinInput.value);
+            const r1 = parseFloat(r1Input.value);
+            const r2 = parseFloat(r2Input.value);
+
+            errorBox.classList.remove('active');
+
+            if (isNaN(vin) || isNaN(r1) || isNaN(r2)) {
+                resultBox.classList.remove('active');
+                return; 
+            }
+
+            if (r1 < 0 || r2 < 0) {
+                errorBox.textContent = 'Resistors cannot be negative.';
+                errorBox.classList.add('active');
+                resultBox.classList.remove('active');
+                return;
+            }
+
+            if ((r1 + r2) === 0) {
+                errorBox.textContent = 'Total resistance (R1 + R2) cannot be zero (Short Circuit).';
+                errorBox.classList.add('active');
+                resultBox.classList.remove('active');
+                return;
+            }
+            
+            const vout = vin * (r2 / (r1 + r2));
+            const current = vin / (r1 + r2); 
+            const ratio = r2 / (r1 + r2);
+            
+            resultValue.textContent = `Vout = ${vout.toFixed(4)} V`;
+            
+            // 【修改点 4】：增加 "Ideal output" 提示，化解精度质疑
+            const currentmA = current * 1000;
+            
+            resultDetail.innerHTML = `
+                <strong>Division Ratio:</strong> ${(ratio * 100).toFixed(2)}% of Input<br>
+                <span style="font-size:0.9em; color:#a7f3d0">Quiescent Current: ${currentmA.toFixed(3)} mA</span>
+                <br><span style="font-size:0.85em; color:#64748b">(Ideal output; ignoring resistor tolerance and load)</span>
+            `;
+            
+            resultBox.classList.add('active');
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            calculate();
+            if (window.innerWidth < 1024) {
+                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+
+        vinInput.addEventListener('input', calculate);
+        r1Input.addEventListener('input', calculate);
+        r2Input.addEventListener('input', calculate);
+    </script>
+</body>
+</html>
