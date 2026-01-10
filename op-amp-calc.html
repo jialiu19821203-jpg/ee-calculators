@@ -3,373 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precision Non-Inverting Op-Amp Gain Calculator | Engineering Tool</title>
-    <meta name="description" content="Calculate non-inverting operational amplifier gain with R1 and Rf resistors. Free online tool for electronics engineers.">
-    <meta name="keywords" content="op-amp calculator, non-inverting amplifier, gain calculator, operational amplifier, electronics calculator, R1 Rf calculator">
+    <title>Precision Non-Inverting Op-Amp Gain Calculator | EE Toolkit</title>
+    <meta name="description" content="Calculate non-inverting operational amplifier gain with R1 and Rf resistors. Free online tool for electronics engineers. Features Voltage Follower mode.">
+    <meta name="keywords" content="op-amp calculator, non-inverting amplifier, gain calculator, operational amplifier, electronics calculator, R1 Rf calculator, LM358 gain">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* CSS 样式完全保持不变 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            min-height: 100vh;
-            padding: 2rem;
-            line-height: 1.6;
-        }
+        body { font-family: 'Arial', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid #1e293b; }
+        .header h1 { font-size: 2.25rem; color: #ffffff; margin-bottom: 0.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .header p { color: #94a3b8; font-size: 1.1rem; }
         
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+        @media (max-width: 1024px) { .grid-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
         
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid #1e293b;
-        }
+        .panel { background: #1e293b; border-radius: 12px; padding: 2rem; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
+        .panel-title { font-size: 1.5rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 600; padding-bottom: 1rem; border-bottom: 2px solid #334155; }
         
-        .header h1 {
-            font-size: 2.25rem;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+        .schematic-container { background: #0f172a; border-radius: 8px; padding: 2rem; display: flex; justify-content: center; align-items: center; border: 1px solid #334155; min-height: 400px; }
         
-        .header p {
-            color: #94a3b8;
-            font-size: 1.1rem;
-        }
+        .formula-box { background: #0f172a; border-radius: 8px; padding: 1.75rem; margin-bottom: 2rem; border: 2px solid #334155; border-left: 4px solid #38bdf8; }
+        .formula-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-weight: 600; }
+        .formula { font-size: 1.75rem; color: #38bdf8; font-weight: 700; font-family: 'Arial', sans-serif; text-align: center; }
         
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
+        .theory-section { background: #0f172a; border-radius: 8px; padding: 1.75rem; margin-top: 2rem; border: 1px solid #334155; }
+        .theory-title { font-size: 1.1rem; color: #ffffff; margin-bottom: 1rem; font-weight: 600; padding-bottom: 0.75rem; border-bottom: 1px solid #334155; }
+        .theory-content { color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; }
+        .theory-content p { margin-bottom: 1rem; }
+        .theory-content p:last-child { margin-bottom: 0; }
         
-        @media (max-width: 1024px) {
-            .grid-layout {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-        }
+        .form-group { margin-bottom: 1.75rem; }
+        .form-group label { display: block; font-size: 0.95rem; color: #cbd5e1; margin-bottom: 0.75rem; font-weight: 500; }
+        .form-group input { width: 100%; background: #0f172a; border: 2px solid #334155; border-radius: 6px; padding: 0.875rem 1rem; color: #ffffff; font-size: 1rem; font-family: 'Arial', sans-serif; transition: all 0.2s ease; }
+        .form-group input:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+        .form-group input:disabled { background: #1e293b; border-color: #334155; color: #64748b; cursor: not-allowed; }
+        .form-group input::placeholder { color: #475569; }
+        .unit-hint { font-size: 0.8rem; color: #64748b; margin-top: 0.5rem; font-style: italic; }
         
-        .panel {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+        .btn-calculate { width: 100%; background: #38bdf8; color: #0f172a; border: none; border-radius: 6px; padding: 1rem; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Arial', sans-serif; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-calculate:hover { background: #0ea5e9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); }
+        .btn-calculate:active { transform: translateY(0); }
         
-        .panel-title {
-            font-size: 1.5rem;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #334155;
-        }
+        .result-container { margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #334155; }
+        .result-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-weight: 600; }
+        .result-box { background: #0f172a; border-radius: 8px; padding: 1.75rem; border: 2px solid #334155; border-left: 4px solid #10b981; display: none; }
+        .result-box.active { display: block; }
+        .result-value { font-size: 1.75rem; color: #10b981; font-weight: 700; margin-bottom: 0.75rem; font-family: 'Arial', sans-serif; }
+        .result-detail { font-size: 0.95rem; color: #94a3b8; }
         
-        /* Schematic Panel */
-        .schematic-container {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #334155;
-            min-height: 400px;
-        }
+        .error-box { background: #7f1d1d; border: 2px solid #991b1b; border-radius: 6px; padding: 1rem; color: #fca5a5; font-size: 0.9rem; margin-top: 1rem; display: none; }
+        .error-box.active { display: block; }
         
-        /* Input Panel */
-        .formula-box {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            margin-bottom: 2rem;
-            border: 2px solid #334155;
-            border-left: 4px solid #38bdf8;
-        }
+        .detailed-theory { background: #1e293b; border-radius: 12px; padding: 2.5rem; margin-top: 3rem; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); }
+        .detailed-theory-title { font-size: 1.75rem; color: #ffffff; margin-bottom: 1.5rem; font-weight: 600; padding-bottom: 1rem; border-bottom: 2px solid #334155; }
+        .theory-subsection { margin-bottom: 2.5rem; }
+        .theory-subsection:last-child { margin-bottom: 0; }
+        .subsection-title { font-size: 1.25rem; color: #38bdf8; margin-bottom: 1rem; font-weight: 600; }
+        .latex-formula { background: #0f172a; border-radius: 8px; padding: 1.5rem; margin: 1rem 0; border: 2px solid #334155; text-align: center; font-size: 1.5rem; color: #38bdf8; font-family: 'Arial', sans-serif; font-weight: 700; }
+        .theory-text { color: #cbd5e1; font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
+        .theory-text ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+        .theory-text li { margin-bottom: 0.75rem; }
+        .theory-text strong { color: #ffffff; }
         
-        .formula-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
+        .limitations-box { background: #3d2616; border: 1px solid #d97706; padding: 1.5rem; border-radius: 8px; margin-top: 2rem; }
+        .limitations-box h4 { color: #fbbf24; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
         
-        .formula {
-            font-size: 1.75rem;
-            color: #38bdf8;
-            font-weight: 700;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-        }
-        
-        .theory-section {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            margin-top: 2rem;
-            border: 1px solid #334155;
-        }
-        
-        .theory-title {
-            font-size: 1.1rem;
-            color: #ffffff;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #334155;
-        }
-        
-        .theory-content {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-        
-        .theory-content p {
-            margin-bottom: 1rem;
-        }
-        
-        .theory-content p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .form-group {
-            margin-bottom: 1.75rem;
-        }
-        
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            background: #0f172a;
-            border: 2px solid #334155;
-            border-radius: 6px;
-            padding: 0.875rem 1rem;
-            color: #ffffff;
-            font-size: 1rem;
-            font-family: 'Arial', sans-serif;
-            transition: all 0.2s ease;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
-        }
-        
-        .form-group input::placeholder {
-            color: #475569;
-        }
-        
-        .unit-hint {
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-        
-        .btn-calculate {
-            width: 100%;
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            border-radius: 6px;
-            padding: 1rem;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Arial', sans-serif;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .btn-calculate:hover {
-            background: #0ea5e9;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
-        }
-        
-        .btn-calculate:active {
-            transform: translateY(0);
-        }
-        
-        .result-container {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #334155;
-        }
-        
-        .result-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .result-box {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.75rem;
-            border: 2px solid #334155;
-            border-left: 4px solid #10b981;
-            display: none;
-        }
-        
-        .result-box.active {
-            display: block;
-        }
-        
-        .result-value {
-            font-size: 1.75rem;
-            color: #10b981;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        .result-detail {
-            font-size: 0.95rem;
-            color: #94a3b8;
-        }
-        
-        .error-box {
-            background: #7f1d1d;
-            border: 2px solid #991b1b;
-            border-radius: 6px;
-            padding: 1rem;
-            color: #fca5a5;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            display: none;
-        }
-        
-        .error-box.active {
-            display: block;
-        }
-        
-        /* Detailed Theory Section */
-        .detailed-theory {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 2.5rem;
-            margin-top: 3rem;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .detailed-theory-title {
-            font-size: 1.75rem;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #334155;
-        }
-        
-        .theory-subsection {
-            margin-bottom: 2.5rem;
-        }
-        
-        .theory-subsection:last-child {
-            margin-bottom: 0;
-        }
-        
-        .subsection-title {
-            font-size: 1.25rem;
-            color: #38bdf8;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        .latex-formula {
-            background: #0f172a;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border: 2px solid #334155;
-            text-align: center;
-            font-size: 1.5rem;
-            color: #38bdf8;
-            font-family: 'Arial', sans-serif;
-            font-weight: 700;
-        }
-        
-        .theory-text {
-            color: #cbd5e1;
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-        
-        .theory-text ul {
-            margin-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        
-        .theory-text li {
-            margin-bottom: 0.75rem;
-        }
-        
-        .theory-text strong {
-            color: #ffffff;
-        }
-        
-        /* Monetization Placeholder */
-        .ad-placeholder {
-            background: #1e293b;
-            border: 2px dashed #475569;
-            border-radius: 8px;
-            padding: 3rem 2rem;
-            margin: 3rem 0;
-            text-align: center;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .ad-placeholder-text {
-            color: #64748b;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-        }
-        
-        /* Footer */
-        .footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 2px solid #1e293b;
-            text-align: center;
-            color: #64748b;
-            font-size: 0.9rem;
-        }
+        .ad-placeholder { background: #1e293b; border: 2px dashed #475569; border-radius: 8px; padding: 3rem 2rem; margin: 3rem 0; text-align: center; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .ad-placeholder-text { color: #64748b; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .footer { margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #1e293b; text-align: center; color: #64748b; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -380,7 +83,6 @@
         </header>
         
         <div class="grid-layout">
-            <!-- Left Column: Schematic -->
             <div class="panel">
                 <h2 class="panel-title">Circuit Schematic</h2>
                 <div class="schematic-container">
@@ -394,6 +96,7 @@
                         <line x1="160" y1="190" x2="160" y2="210" stroke="#94a3b8" stroke-width="2"/>
                         <rect x="185" y="180" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
                         <rect x="145" y="210" width="30" height="20" fill="#0f172a" stroke="#fbbf24" stroke-width="2"/>
+                        <line x1="160" y1="230" x2="160" y2="235" stroke="#94a3b8" stroke-width="2"/>
                         <text x="45" y="110" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vin</text>
                         <text x="350" y="135" fill="#38bdf8" font-family="Arial" font-size="14" font-weight="bold">Vout</text>
                         <text x="190" y="175" fill="#fbbf24" font-family="Arial" font-size="14">Rf</text>
@@ -404,7 +107,6 @@
                 </div>
             </div>
             
-            <!-- Right Column: Inputs and Results -->
             <div class="panel">
                 <h2 class="panel-title">Calculator</h2>
                 
@@ -415,19 +117,6 @@
                 
                 <form id="gainForm" autocomplete="off">
                     <div class="form-group">
-                        <label for="r1">Resistor R<sub>1</sub> (Ω)</label>
-                        <input 
-                            type="number" 
-                            id="r1" 
-                            min="0" 
-                            step="any" 
-                            required 
-                            placeholder="Enter R1 resistance value"
-                        >
-                        <div class="unit-hint">Input resistance from inverting terminal to ground</div>
-                    </div>
-                    
-                    <div class="form-group">
                         <label for="rf">Feedback Resistor R<sub>f</sub> (Ω)</label>
                         <input 
                             type="number" 
@@ -437,7 +126,20 @@
                             required 
                             placeholder="Enter Rf resistance value"
                         >
-                        <div class="unit-hint">Feedback resistance from output to inverting terminal</div>
+                        <div class="unit-hint">Set to 0 for Voltage Follower (Unity Gain)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="r1">Resistor R<sub>1</sub> (Ω)</label>
+                        <input 
+                            type="number" 
+                            id="r1" 
+                            min="0" 
+                            step="any" 
+                            required 
+                            placeholder="Enter R1 resistance value"
+                        >
+                        <div class="unit-hint" id="r1-hint">Input resistance from inverting terminal to ground</div>
                     </div>
                     
                     <button type="submit" class="btn-calculate">Calculate Gain</button>
@@ -477,13 +179,12 @@
             </div>
         </div>
         
-        <!-- Detailed Theory & Application Section -->
         <div class="detailed-theory">
             <h2 class="detailed-theory-title">Detailed Theory & Application</h2>
             
             <div class="theory-subsection">
                 <h3 class="subsection-title">The Formula</h3>
-                <div class="latex-formula">A<sub>v</sub> = 1 + <span style="text-decoration:overline">R<sub>f</sub></span>⁄<span style="text-decoration:overline">R<sub>1</sub></span></div>
+                <div class="latex-formula">A<sub>v</sub> = 1 + (R<sub>f</sub> / R<sub>1</sub>)</div>
                 <p class="theory-text">
                     The voltage gain (A<sub>v</sub>) of a non-inverting operational amplifier is determined by the ratio 
                     of the feedback resistor (R<sub>f</sub>) to the input resistor (R<sub>1</sub>). This configuration 
@@ -497,8 +198,7 @@
                     When designing non-inverting amplifier circuits, component selection is crucial for optimal performance:
                 </p>
                 <ul class="theory-text">
-                    <li><strong>LM358:</strong> Dual op-amp, low-cost, suitable for general-purpose applications. Ideal for 
-                        audio amplification and sensor signal conditioning. Works well with single or dual power supplies.</li>
+                    <li><strong>LM358:</strong> Dual op-amp, low-cost. <em>Suitable for general-purpose amplification and sensing (not a comparator; not for high-speed switching).</em> Works well with single or dual power supplies.</li>
                     <li><strong>TL072:</strong> Low-noise JFET-input op-amp, excellent for high-impedance applications. 
                         Perfect for audio preamplifiers and instrumentation amplifiers where low noise is critical.</li>
                     <li><strong>OPA2134:</strong> Premium audio op-amp with extremely low distortion. Best choice for 
@@ -514,7 +214,7 @@
             <div class="theory-subsection">
                 <h3 class="subsection-title">Use Cases</h3>
                 <ul class="theory-text">
-                    <li><strong>Buffer Circuits (Unity Gain):</strong> When R<sub>f</sub> = 0 and R<sub>1</sub> = ∞, 
+                    <li><strong>Buffer Circuits (Unity Gain):</strong> When R<sub>f</sub> = 0 and R<sub>1</sub> = ∞ (or removed), 
                         the gain becomes 1, creating a voltage follower. This provides high input impedance and low 
                         output impedance, ideal for impedance matching between circuit stages.</li>
                     <li><strong>Sensor Signal Amplification:</strong> Temperature sensors (LM35, thermocouples), 
@@ -530,57 +230,98 @@
                         industrial control systems.</li>
                 </ul>
             </div>
+
+            <div class="limitations-box">
+                <h4><span>⚠️</span> Real-World Engineering Constraints</h4>
+                <ul class="theory-text" style="color:#fbbf24; margin-top:0.5rem;">
+                    <li><strong>Supply Rails:</strong> Output voltage cannot exceed the power supply voltage (Clipping). Check "Rail-to-Rail" specs.</li>
+                    <li><strong>Input Common-Mode Range:</strong> Ensure inputs stay within the valid range (often not rail-to-rail; check datasheet limits).</li>
+                    <li><strong>Slew Rate:</strong> Output may distort at high frequencies or large amplitudes if the op-amp cannot change voltage fast enough.</li>
+                    <li><strong>Gain-Bandwidth Product (GBW):</strong> As gain increases, bandwidth decreases. (e.g., A 1MHz Op-Amp with Gain=100 has only 10kHz bandwidth).</li>
+                    <li><strong>Stability:</strong> Ensure your specific Op-Amp is "Unity-Gain Stable" before using it as a voltage follower (Rf=0).</li>
+                </ul>
+            </div>
         </div>
         
-        <!-- Monetization Placeholder -->
         <div class="ad-placeholder">
             <div class="ad-placeholder-text">Sponsored Content</div>
         </div>
         
-        <!-- Footer -->
         <footer class="footer">
             © 2026 EE Toolkit - Professional Electronics Calculators
         </footer>
     </div>
     
     <script>
-        document.getElementById('gainForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent form submission and page refresh
-            
-            // Hide previous error
-            const errorBox = document.getElementById('errorBox');
+        const form = document.getElementById('gainForm');
+        const rfInput = document.getElementById('rf');
+        const r1Input = document.getElementById('r1');
+        const r1Hint = document.getElementById('r1-hint');
+        const errorBox = document.getElementById('errorBox');
+        const resultBox = document.getElementById('resultBox');
+        const resultValue = document.getElementById('resultValue');
+        const resultDetail = document.getElementById('resultDetail');
+
+        function calculate() {
+            const rfVal = rfInput.value;
+            const r1Val = r1Input.value;
+            const rf = parseFloat(rfVal);
+            const r1 = parseFloat(r1Val);
+
             errorBox.classList.remove('active');
-            
-            // Get input values
-            const r1 = parseFloat(document.getElementById('r1').value);
-            const rf = parseFloat(document.getElementById('rf').value);
-            
-            // Validate inputs
-            if (isNaN(r1) || isNaN(rf) || r1 <= 0 || rf <= 0) {
-                errorBox.textContent = 'Please enter valid positive numbers for both resistors.';
-                errorBox.classList.add('active');
-                document.getElementById('resultBox').classList.remove('active');
+
+            if (rf === 0 && rfVal !== '') {
+                r1Input.disabled = true;
+                r1Input.value = ''; 
+                r1Input.placeholder = "Open / Not Required (∞)";
+                r1Hint.textContent = "Mode: Voltage Follower (R1 is effectively removed)";
+                
+                resultBox.classList.add('active');
+                resultValue.textContent = "Gain (A) = 1.0000";
+                // 修改点: 增加对通用示意图的文字解释
+                resultDetail.innerHTML = "<strong>Voltage Follower Mode:</strong> Output follows Input (Unity Gain).<br><span style='font-size:0.85em; color:#64748b'>(Note: Schematic remains generic; imagine R1 removed and Rf shorted)</span>";
                 return;
+            } 
+            
+            else {
+                if (r1Input.disabled) {
+                    r1Input.disabled = false;
+                    r1Input.placeholder = "Enter R1 resistance value";
+                    r1Hint.textContent = "Input resistance from inverting terminal to ground";
+                }
+
+                if (isNaN(rf) || isNaN(r1)) {
+                    resultBox.classList.remove('active');
+                    return; 
+                }
+
+                // 修改点: 报错文案更严谨 (In non-follower mode)
+                if (r1 <= 0) {
+                    errorBox.textContent = 'In non-follower mode, R1 must be greater than 0Ω.';
+                    errorBox.classList.add('active');
+                    resultBox.classList.remove('active');
+                    return;
+                }
+                
+                const gain = 1 + (rf / r1);
+                
+                resultValue.textContent = `Gain (A) = ${gain.toFixed(4)}`;
+                resultDetail.textContent = `Output Voltage = ${gain.toFixed(4)} × Input Voltage`;
+                
+                resultBox.classList.add('active');
             }
-            
-            // Calculate gain: Gain = 1 + Rf/R1
-            const gain = 1 + (rf / r1);
-            
-            // Display result
-            const resultBox = document.getElementById('resultBox');
-            const resultValue = document.getElementById('resultValue');
-            const resultDetail = document.getElementById('resultDetail');
-            
-            resultValue.textContent = `Gain (A) = ${gain.toFixed(6)}`;
-            resultDetail.textContent = `Output Voltage = ${gain.toFixed(6)} × Input Voltage`;
-            
-            resultBox.classList.add('active');
-            
-            // Scroll result into view on mobile
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            calculate();
             if (window.innerWidth < 1024) {
                 resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         });
+
+        rfInput.addEventListener('input', calculate);
+        r1Input.addEventListener('input', calculate);
     </script>
 </body>
 </html>
