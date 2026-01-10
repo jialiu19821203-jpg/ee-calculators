@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer | EE Toolkit</title>
+    <meta name="description" content="Disclaimer for EE Master Toolkit usage.">
+    <style>
+        /* 复用主页 CSS 风格 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 2rem; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        /* Navigation */
+        .nav-bar { display: flex; justify-content: center; gap: 2rem; padding-bottom: 2rem; margin-bottom: 3rem; border-bottom: 1px solid #334155; }
+        .nav-link { color: #94a3b8; text-decoration: none; font-weight: 500; transition: all 0.2s; }
+        .nav-link:hover { color: #38bdf8; }
+        
+        .content-card {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 3rem;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        h1 { color: #fbbf24; margin-bottom: 1.5rem; font-size: 2.5rem; } /* 用黄色强调警示 */
+        h2 { color: #ffffff; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.3rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem;}
+        p { margin-bottom: 1rem; color: #cbd5e1; }
+        
+        .footer { margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #1e293b; text-align: center; color: #64748b; font-size: 0.9rem; }
+        .footer a { color: #64748b; text-decoration: none; margin: 0 10px; }
+        .footer a:hover { color: #38bdf8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="index.html" class="nav-link">🏠 Home</a>
+            <a href="op-amp-calc.html" class="nav-link">Op-Amp</a>
+            <a href="voltage-divider.html" class="nav-link">Voltage Divider</a>
+            <a href="led-resistor.html" class="nav-link">LED Resistor</a>
+        </nav>
+
+        <div class="content-card">
+            <h1>Disclaimer</h1>
+            
+            <p>The information provided by <strong>EE Master Toolkit</strong> ("we," "us," or "our") on this website is for general informational and educational purposes only. All information on the Site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.</p>
+            
+            <h2>1. Educational Purpose Only</h2>
+            <p>The calculators and tools provided on this website are intended to assist in theoretical design and learning. They should not be the sole basis for critical engineering decisions. Real-world components have tolerances, temperature coefficients, and parasitic effects that simulations may not account for.</p>
+
+            <h2>2. No Professional Engineering Advice</h2>
+            <p>The Site cannot and does not contain professional engineering advice. The electronics information is provided for general educational and informational purposes only and is not a substitute for professional advice. Accordingly, before taking any actions based upon such information, we encourage you to consult with the appropriate professionals.</p>
+
+            <h2>3. Hardware Safety & Liability</h2>
+            <p><strong>Under no circumstance shall we have any liability to you</strong> for any loss or damage of any kind incurred as a result of the use of the site or reliance on any information provided on the site. Use of the site and your reliance on any information on the site is solely at your own risk.</p>
+            <p>We are not responsible for burned components, damaged equipment, or safety hazards (such as fire or electric shock) resulting from the construction of circuits based on values calculated here. Always double-check calculations with official component datasheets.</p>
+        </div>
+
+
+        <footer class="footer">
+            &copy; 2026 EE Toolkit - Professional Electronics Calculators
+            <br><br>
+            <div style="font-size: 0.85rem;">
+                <a href="about.html" style="color: #64748b; text-decoration: none; margin: 0 10px; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#64748b'">About Us</a> | 
+                <a href="disclaimer.html" style="color: #64748b; text-decoration: none; margin: 0 10px; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#64748b'">Disclaimer</a> | 
+                <a href="privacy-policy.html" style="color: #64748b; text-decoration: none; margin: 0 10px; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='#64748b'">Privacy Policy</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
